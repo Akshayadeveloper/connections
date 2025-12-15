@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Contact Analysis Report (652 Contacts)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        @media print {
+            .no-print { display: none; }
+            .page-break { page-break-before: always; }
+            body { -webkit-print-color-adjust: exact; }
+        }
+        .table-row-hover:hover { background-color: #f3f4f6; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Header Section -->
+    <header class="bg-blue-900 text-white p-6 shadow-lg print:bg-blue-900 print:text-white">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold">Business Contact Analytics Report</h1>
+                <p class="text-blue-200 mt-1">Comprehensive analysis of 652 professionals across 4 phases.</p>
+            </div>
+            <div class="text-right hidden sm:block">
+                <p class="text-sm opacity-75">Generated on</p>
+                <p class="font-semibold" id="date-display">December 15, 2025</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6">
+        
+        <!-- Summary Stats Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8 no-print-break">
+            <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500">
+                <p class="text-gray-500 text-sm">Grand Total</p>
+                <p class="text-3xl font-bold text-blue-600">652</p>
+                <p class="text-xs text-gray-400">Unique People</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-l-4 border-green-500">
+                <p class="text-gray-500 text-sm">Phase 1</p>
+                <p class="text-2xl font-bold text-gray-700">175</p>
+                <p class="text-xs text-gray-400">Contacts</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-l-4 border-indigo-500">
+                <p class="text-gray-500 text-sm">Phase 2</p>
+                <p class="text-2xl font-bold text-gray-700">184</p>
+                <p class="text-xs text-gray-400">Contacts</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-l-4 border-purple-500">
+                <p class="text-gray-500 text-sm">Phase 3</p>
+                <p class="text-2xl font-bold text-gray-700">155</p>
+                <p class="text-xs text-gray-400">Contacts</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-l-4 border-pink-500">
+                <p class="text-gray-500 text-sm">Phase 4</p>
+                <p class="text-2xl font-bold text-gray-700">138</p>
+                <p class="text-xs text-gray-400">Contacts</p>
+            </div>
+        </section>
+
+        <!-- Insights Section -->
+        <section class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4 border-b pb-2">Key Demographic Insights</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-semibold text-lg text-gray-700 mb-2">Primary Roles</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-600">
+                        <li><strong>C-Suite Dominance:</strong> Over 60% of the list consists of CEOs, Founders, Co-Founders, and CTOs.</li>
+                        <li><strong>Tech Focus:</strong> High concentration in AI, Blockchain, Software Development, and SaaS.</li>
+                        <li><strong>Creative & Operations:</strong> Significant presence of Creative Directors, Operations Managers, and Marketers.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg text-gray-700 mb-2">Geographic Distribution</h3>
+                    <p class="text-gray-600 mb-2">The dataset shows a distinct "East meets West" pattern with major hubs in:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">South Korea (Dominant)</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Vietnam</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">Brazil</span>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-medium">India</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">Turkey</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controls (No Print) -->
+        <section class="mb-4 flex flex-col sm:flex-row justify-between items-center no-print gap-4">
+            <div class="relative w-full sm:w-1/2">
+                <input type="text" id="searchInput" placeholder="Search by name, role, or location..." 
+                    class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="absolute left-3 top-2.5 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+            <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                Save as PDF / Print
+            </button>
+        </section>
+
+        <!-- Data Table -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">#</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">Name</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profession / Headline</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">Location (Inferred)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contactTableBody" class="bg-white divide-y divide-gray-200 text-sm">
+                        <!-- Rows will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-4 bg-gray-50 border-t text-center text-gray-500 text-sm" id="recordCount">
+                Showing all 652 records
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Data Source: 652 Contacts
+        // Note: This data is aggregated from the 4 analysis phases.
+        const contacts = [
+            // Phase 1 (1-175)
+            {id:1,name:"Nisha Tyagi",role:"Co-founder at Global SEO Marketers",loc:"N/A"},
+            {id:2,name:"Lam Ngoc Trang",role:"Founder of Sonder & Partner Boutique Agency",loc:"N/A"},
+            {id:3,name:"Phillip Rødseth",role:"Founder @ Kjern | Product Development",loc:"N/A"},
+            {id:4,name:"R.M. Dhanasekharan",role:"Market Research | Data Collection",loc:"N/A"},
+            {id:5,name:"Zen Sama",role:"Power Energy Industry | Waste to Renewable",loc:"N/A"},
+            {id:6,name:"Corina Taban",role:"Leadership development training for Tech",loc:"N/A"},
+            {id:7,name:"Frank Oddens",role:"Building Sustainable Growth | CEO & Founder",loc:"N/A"},
+            {id:8,name:"Mustafa Mallawani",role:"CEO @ Roya media production",loc:"N/A"},
+            {id:9,name:"Ahmed EL Hennawy",role:"Co-Founder & CEO @ Devart EG",loc:"Egypt (EG)"},
+            {id:10,name:"Mark Lee",role:"Co-founder of ET AsiaTech Corporation",loc:"N/A"},
+            {id:11,name:"Rafael Gaia Duarte",role:"CEO & co-founder at Roga and Roga DX",loc:"N/A"},
+            {id:12,name:"Jaakko Hyytinen",role:"Co Founder - Omasooda & Mavullaa",loc:"N/A"},
+            {id:13,name:"Eduardo Dullius",role:"CEO & Founder at Denker Engenharia de Sistemas",loc:"Brazil"},
+            {id:14,name:"Jack Dogyun Kim",role:"AI Agents for Brands | CEO at DALPHA",loc:"N/A"},
+            {id:15,name:"Uziel Barbosa",role:"CEO & Founder na Doity",loc:"Brazil"},
+            {id:16,name:"Alex Kuznetsov",role:"CaWorking Founder | ex-Paramount",loc:"N/A"},
+            {id:17,name:"Min Kim",role:"Co-CEO at finnest",loc:"N/A"},
+            {id:18,name:"SUNG EUN RYU",role:"CEO of KKOT BARUM",loc:"South Korea"},
+            {id:19,name:"Kristian Eek",role:"Founder @FormaGrowth",loc:"N/A"},
+            {id:20,name:"Hugo Björk Gindin",role:"Co-founder of KlassHjälpen",loc:"Sweden"},
+            {id:21,name:"Michael Anan Onimisi",role:"Serial Entrepreneur | x5 Founder",loc:"N/A"},
+            {id:22,name:"Imane Saimeddahr",role:"Founder & CEO @ The Digital Phenix",loc:"N/A"},
+            {id:23,name:"Bruno Rabelo",role:"Founder @Grupo_OTB",loc:"Brazil"},
+            {id:24,name:"Jules Flan",role:"19 Year old | Founder of StreamState LTD",loc:"N/A"},
+            {id:25,name:"Jongyoun Kim",role:"Scatter Lab, Inc. CEO",loc:"South Korea"},
+            {id:26,name:"Stefan Stolwijk",role:"CEO Swiss Alps Coliving",loc:"Switzerland"},
+            {id:27,name:"Automaedge AI",role:"Founder at Automaedge",loc:"N/A"},
+            {id:28,name:"Jose Muniz Netto",role:"Sócio Fundador e Presidente I Nantes Financial",loc:"Brazil"},
+            {id:29,name:"Hyeonji Kim",role:"Co-founder & CMO",loc:"South Korea"},
+            {id:30,name:"Dang Van Tung",role:"Founder at TFV Industries Company Limited",loc:"Vietnam"},
+            {id:31,name:"Ricardo de Barros Tostes",role:"CEO na Expresso Predileto",loc:"Brazil"},
+            {id:32,name:"Mateja Mitrovic",role:"Designer & Founder at Marso Design",loc:"N/A"},
+            {id:33,name:"Vishant Agarwal",role:"Founder @ Street Smart Advertising",loc:"N/A"},
+            {id:34,name:"HYEOK KIM",role:"CEO & Co-founder at Rexolution Inc",loc:"South Korea"},
+            {id:35,name:"Bruno Linhares Brant Reis",role:"Fundador | CEO | Diretor Geral",loc:"Brazil"},
+            {id:36,name:"Raffles Chan",role:"Chief Executive Officer at GITP Asia",loc:"Asia"},
+            {id:37,name:"Manh Tran",role:"CEO @ TOPI",loc:"Vietnam"},
+            {id:38,name:"Taehong Kim",role:"Liberaware Korea Co., Ltd. CEO",loc:"South Korea"},
+            {id:39,name:"Mario Cevoli",role:"Founder : Lex Pro Elite",loc:"Italy"},
+            {id:40,name:"Ha Tran",role:"CEO at Just It",loc:"Vietnam"},
+            {id:41,name:"Info. Zenvoro",role:"Founder at Zenvoro",loc:"N/A"},
+            {id:42,name:"Roie Fizitsky",role:"Founder | @BacktestAI",loc:"N/A"},
+            {id:43,name:"Minh Nguyen",role:"Managing Director Metal Solutions",loc:"Vietnam"},
+            {id:44,name:"BINH DUONG",role:"Founder at RALPH workation retreat",loc:"Vietnam"},
+            {id:45,name:"Vu-Tuan-Dang TRAN",role:"Creative Human-Based | Co-founder",loc:"Vietnam"},
+            {id:46,name:"Nahn Huynh.",role:"Co-Founder @ EDUTO",loc:"Vietnam"},
+            {id:47,name:"Pham Xuan Khanh",role:"Founder at Mobile-ID Technologies",loc:"Vietnam"},
+            {id:48,name:"Ran Sassover",role:"CEO & Founder at Spectrum",loc:"N/A"},
+            {id:49,name:"Nodar Lomauri",role:"CTO",loc:"N/A"},
+            {id:50,name:"Hyunji Hayley Kim",role:"Co-Founder & CEO at ALLROUNDERS",loc:"South Korea"},
+            {id:51,name:"Alexey Ruzaev",role:"Chief Executive Officer at Blackberg LP",loc:"N/A"},
+            {id:52,name:"Junil Kang",role:"Joshua at Bass Ventures",loc:"South Korea"},
+            {id:53,name:"bhavya Vaghani",role:"Founder & CEO @ Veron Lab.",loc:"N/A"},
+            {id:54,name:"Jeremy Jung",role:"Co-Founder & COO, Creata Chain",loc:"N/A"},
+            {id:55,name:"Choi Seunghyeok",role:"Founder & CEO of MS Heal",loc:"South Korea"},
+            {id:56,name:"Jang Cheol-il",role:"CEO RIDM AI",loc:"South Korea"},
+            {id:57,name:"Doaa Ashraf",role:"Co-founder and CEO of Diyar designs",loc:"N/A"},
+            {id:58,name:"Mauricio Colin",role:"Vice Presidente Daicast Industria e Comercio",loc:"Brazil"},
+            {id:59,name:"DAO TIEN DUNG",role:"Tech Engineer | Diabetes Survivor",loc:"Vietnam"},
+            {id:60,name:"Yun Gu (Edmund) Lee",role:"Co-founder & Co-CEO @ RnDcircle",loc:"N/A"},
+            {id:61,name:"Tiya DaCosta",role:"Founder at 1711 Studios",loc:"N/A"},
+            {id:62,name:"Vinicius Bitencourt",role:"Co-Founder | Tech & International Lawyer",loc:"N/A"},
+            {id:63,name:"Alejandra Escandon V.",role:"CEO & Founder Andes Neurofeedback",loc:"N/A"},
+            {id:64,name:"Norhan Mahmoud",role:"Entrepreneur | Mindset coach",loc:"N/A"},
+            {id:65,name:"Mohamed Ruzain",role:"Founder & CEO @ Corex and Skora",loc:"N/A"},
+            {id:66,name:"Lorena Lage",role:"CEO | L&O Advogados",loc:"Brazil"},
+            {id:67,name:"Jaeyong Sung",role:"Co-founder of Nari Labs",loc:"N/A"},
+            {id:68,name:"Matti Pöysti",role:"Founder @ bopal",loc:"N/A"},
+            {id:69,name:"Osama khelad",role:"Founder & Business Development Lead",loc:"N/A"},
+            {id:70,name:"DANIYAL AHMAD",role:"3X Founder (Nexivo-Diyanza-Zayra)",loc:"N/A"},
+            {id:71,name:"Rainer Hackbell",role:"B2B-Texter für Tech & SaaS",loc:"Germany/DACH"},
+            {id:72,name:"Oleksandr Maistrenko",role:"Chief Operating Officer - Snack Production",loc:"N/A"},
+            {id:73,name:"Cam Lai",role:"Funnel CRO",loc:"N/A"},
+            {id:74,name:"Silvio Gentile",role:"Entrepreneur & Founder of Greenutility Spa",loc:"Italy"},
+            {id:75,name:"Antonio Capaldo",role:"CEO & Co-Founder TrenDevice S.p.A.",loc:"Italy"},
+            {id:76,name:"Roy Kim",role:"Co-Founder of SnapVault",loc:"N/A"},
+            {id:77,name:"Edurne Benito Antolín",role:"Vice President, Digital Business",loc:"N/A"},
+            {id:78,name:"Mengqi Cheng",role:"Founder at Amplift.AI",loc:"N/A"},
+            {id:79,name:"Anna Bizon",role:"Strategic CMO & Marketing Leader",loc:"N/A"},
+            {id:80,name:"Andre Rossouw",role:"Founder's Office at PhrasIQ",loc:"N/A"},
+            {id:81,name:"Dr. Muruli B L. Shashidhara",role:"Founder at UniqueTRUTH",loc:"N/A"},
+            {id:82,name:"Yahia Hassan",role:"Founder & CEO @ Trippio",loc:"N/A"},
+            {id:83,name:"Federico Alonso",role:"Head & CEO | COO & CXO Corporativo",loc:"LATAM"},
+            {id:84,name:"Syed Zeeshan",role:"Founder @ MazeFunds and CampusX",loc:"N/A"},
+            {id:85,name:"Nicolas Koursaris",role:"Founder at N. Koursaris LLC",loc:"N/A"},
+            {id:86,name:"Hwarang Oh",role:"CEO, AI, Human",loc:"N/A"},
+            {id:87,name:"SoonChan An",role:"COO of BIZTOSS / Deal Dynamics",loc:"N/A"},
+            {id:88,name:"Yoojun Kang",role:"CEO - YAJA",loc:"South Korea"},
+            {id:89,name:"Philip Albrecht",role:"Co-Founder & CEO of Crodox",loc:"N/A"},
+            {id:90,name:"Logan NA",role:"LIKELION CEO & Co-Founder",loc:"N/A"},
+            {id:91,name:"Khaled Al-Sarra",role:"Founder @ Saudi Aknan",loc:"Saudi Arabia"},
+            {id:92,name:"Yuna Hong",role:"Co-founder @ThePlato",loc:"N/A"},
+            {id:93,name:"Rohith K",role:"Co-Founder @ Plaidnox",loc:"N/A"},
+            {id:94,name:"DANNY HAN",role:"CEO of DIOTIMES",loc:"N/A"},
+            {id:95,name:"Jongyub Seok",role:"CTO",loc:"South Korea"},
+            {id:96,name:"Raquel Kibrit",role:"CEO • Country Manager",loc:"N/A"},
+            {id:97,name:"Baek Jun-tae",role:"ceo & founder @navifra",loc:"South Korea"},
+            {id:98,name:"Chanwoo Lee",role:"Cross-border eKYC, CTO@Tomorrow",loc:"N/A"},
+            {id:99,name:"Yeongchae Kim",role:"Co-Founder, CTO at VibersAI",loc:"N/A"},
+            {id:100,name:"younes boumal",role:"Founder at COPYNNECT",loc:"N/A"},
+            {id:101,name:"Fred Sangwook Seo",role:"CEO at FROMtheRED",loc:"N/A"},
+            {id:102,name:"Lynn Polyak",role:"Co-Founder | Studio Poink",loc:"N/A"},
+            {id:103,name:"Sung Hwan Jung",role:"CEO/Co-founder @RecoveryBridge",loc:"South Korea"},
+            {id:104,name:"Kostyantyn Bezdyetko",role:"Founder and CEO at Atmolight, Nastrly",loc:"N/A"},
+            {id:105,name:"Keum Chae Min",role:"CEO and Founder of UNLIMEAT Inc",loc:"N/A"},
+            {id:106,name:"Tuba mahmood",role:"COO & CTO @Ocena",loc:"N/A"},
+            {id:107,name:"Jacob Sunho Kim",role:"Chief Technology Officer",loc:"N/A"},
+            {id:108,name:"John Park",role:"CEO @ AINI Networks",loc:"N/A"},
+            {id:109,name:"Anton Chulko",role:"Co-Founder & COO at Flexum",loc:"N/A"},
+            {id:110,name:"Aurelio Bini",role:"Direttore Generale presso Naturneed",loc:"Italy"},
+            {id:111,name:"Claudio Monteforte",role:"CEO & Co-Founder Idnamic",loc:"Italy"},
+            {id:112,name:"Daehoon Kim",role:"CEO at LLOYDK",loc:"South Korea"},
+            {id:113,name:"Khac Manh",role:"Founder at cong dong Myconnect",loc:"Vietnam"},
+            {id:114,name:"Nicholas Rowe",role:"CEO & Co-Founder at Saigon Digital",loc:"Vietnam"},
+            {id:115,name:"Choi Hyun-soo",role:"Founder & CEO @BOOKEND",loc:"South Korea"},
+            {id:116,name:"Bae Ji-hyun",role:"Founder startup expert patent attorney",loc:"South Korea"},
+            {id:117,name:"Jung Young-hoon",role:"waiexolution CEO",loc:"South Korea"},
+            {id:118,name:"Kim Won-jun",role:"COO & Co-Founder, Lifescape Inc",loc:"South Korea"},
+            {id:119,name:"Gahee Seo",role:"Co-Founder & CEO of Federation",loc:"N/A"},
+            {id:120,name:"Ayeong CHOE",role:"CEO at ADIVE",loc:"South Korea"},
+            {id:121,name:"LINH THOAI NGUYEN",role:"Founder of Katko Saigon",loc:"Vietnam"},
+            {id:122,name:"Allan Lam",role:"CEO at Domineer Asset Management Ltd.",loc:"N/A"},
+            {id:123,name:"Donghwan Ji",role:"Co-Founder & CEO @ ANY-WAY",loc:"N/A"},
+            {id:124,name:"Riku Miettinen",role:"Entrepreneur | Web3 creator",loc:"N/A"},
+            {id:125,name:"Dong Hae Shin",role:"CEO Renaissance Adventure",loc:"South Korea"},
+            {id:126,name:"Tomás G. Alvarez",role:"Co-Founder @ Veme",loc:"N/A"},
+            {id:127,name:"Lee Byung-hoon",role:"Co-Founder & Operation Lead @Moho",loc:"South Korea"},
+            {id:128,name:"Hakseob Noh",role:"Founder / By Plasma Lighting System",loc:"N/A"},
+            {id:129,name:"Mike Shin",role:"Entrepreneur at Antler",loc:"N/A"},
+            {id:130,name:"Kyung Jin Jung",role:"Entrepreneur | Former PM",loc:"N/A"},
+            {id:131,name:"Vincenzo De Simone",role:"CEO & Co-founder Genesis Group",loc:"N/A"},
+            {id:132,name:"Christopher Shiers",role:"Founder and Director of Pasnger",loc:"N/A"},
+            {id:133,name:"Lorenzo Nicolò Meazza",role:"Criminal Lawyer",loc:"N/A"},
+            {id:134,name:"Kang Jung-min",role:"CEO & Founder @CareerDay",loc:"South Korea"},
+            {id:135,name:"Raphael Lee",role:"Chief Executive Officer at WAI Korea",loc:"South Korea"},
+            {id:136,name:"Szymon Gierszewski",role:"Founder & Co-owner at Polarions",loc:"Sweden"},
+            {id:137,name:"Ryoung Kim",role:"co-CEO & Founder at 7min",loc:"South Korea"},
+            {id:138,name:"Chara Paraskeva",role:"Chief Compliance Officer",loc:"N/A"},
+            {id:139,name:"Loui Pratt",role:"Entrepreneur",loc:"N/A"},
+            {id:140,name:"Axel Dvergsdal",role:"Co-Founder & CEO | Strandscot",loc:"N/A"},
+            {id:141,name:"Rio Jiwoong Yeon",role:"Co-Founder & CTO, muaeLIVE",loc:"N/A"},
+            {id:142,name:"Gerges Emad",role:"Founder eflogify marketing agency",loc:"N/A"},
+            {id:143,name:"Alberto Neto",role:"Ceo | Rede Guarde Mais Self Storage",loc:"N/A"},
+            {id:144,name:"Sanghoon Han",role:"Founder at Parallax AI",loc:"N/A"},
+            {id:145,name:"Andres Altamirano",role:"Co-Founder & Operations Manager",loc:"N/A"},
+            {id:146,name:"Yongho Cho",role:"Business Model Innovation Coach",loc:"South Korea"},
+            {id:147,name:"Katie Le",role:"Businesswoman",loc:"N/A"},
+            {id:148,name:"Eyad Mohamed",role:"World's Youngest Tech Founder",loc:"N/A"},
+            {id:149,name:"JULIAN GRITSCH",role:"Fundador da EuroIT e JGCorp",loc:"Brazil/Portugal"},
+            {id:150,name:"Don Huy",role:"Founder at Doncorp & Nexcyra",loc:"N/A"},
+            {id:151,name:"Daniel Nicholas Dibal",role:"CEO & Founder, Orivon Edge",loc:"Africa"},
+            {id:152,name:"Arūnas Baltrušaitis",role:"Co-Founder @Zenvoke",loc:"Lithuania"},
+            {id:153,name:"Seokkue (Leo) Song",role:"CEO & Founder of Pikurate",loc:"N/A"},
+            {id:154,name:"Shubham Saxena",role:"18, Founder of Välkommen Sverige UF",loc:"Sweden"},
+            {id:155,name:"Chang-seok Kang",role:"C.E.O of MIRI D.I.H",loc:"N/A"},
+            {id:156,name:"Simón Bustamante Tong",role:"CSO - McCann Chile",loc:"Chile"},
+            {id:157,name:"Pablo Sommer",role:"CEO en McCann",loc:"N/A"},
+            {id:158,name:"Jisoo Kim",role:"Co-Founder @ Zighang",loc:"South Korea"},
+            {id:159,name:"Hiro Yamada",role:"Product development partner",loc:"N/A"},
+            {id:160,name:"IVÁN CENTENO",role:"CEO en Iniciativa Panamá Sin Pobreza",loc:"Panama"},
+            {id:161,name:"Diego Perry Aldana",role:"CEO en WolfBCPP",loc:"N/A"},
+            {id:162,name:"Domenico Communara",role:"CEO Direzione Impresa",loc:"Italy"},
+            {id:163,name:"Alexis Huenchullán",role:"Director Creativo en Wolf BCPP",loc:"N/A"},
+            {id:164,name:"Amr Elghamry",role:"COO, Supply Chain Manager",loc:"N/A"},
+            {id:165,name:"Michael Soares",role:"Head of Open Innovation",loc:"N/A"},
+            {id:166,name:"Tiago Aroeira, PhD",role:"CEO da RECTRIX",loc:"Brazil"},
+            {id:167,name:"Jonghyeon Ham",role:"Founder of refresh.cv",loc:"N/A"},
+            {id:168,name:"Ragnar Jo",role:"China Strategic Business Partner",loc:"China"},
+            {id:169,name:"Jun Luo",role:"Chairman",loc:"N/A"},
+            {id:170,name:"Roy Keidar",role:"Partner at Arnon, Tadmor-Levy",loc:"Israel"},
+            {id:171,name:"Hậu Nguyễn Văn",role:"Founder at Sokeio Technology",loc:"Vietnam"},
+            {id:172,name:"ZHIJIE QI",role:"Founder & CEO of AI Hikari",loc:"Tokyo / Bay Area"},
+            {id:173,name:"Jose Ignacio Solari",role:"President & CCO DDB Chile",loc:"Chile"},
+            {id:174,name:"Giuseppe Fornari",role:"Founding Partner presso Fornari",loc:"Italy"},
+            {id:175,name:"Vilmantas Varnauskas",role:"CEO & Founder @ eXact Digital",loc:"Lithuania"},
+
+            // Phase 2 (176-359)
+            {id:176,name:"Joseph Lee",role:"Architect of 'THE LEX'",loc:"N/A"},
+            {id:177,name:"Lee Su-min",role:"Creator Economy Founder & CEO",loc:"South Korea"},
+            {id:178,name:"Madeleine Dartey",role:"Founders Associate at PlayTheHype",loc:"N/A"},
+            {id:179,name:"Hugo Ginestet",role:"Co-founder & CTO @ Suqaba",loc:"N/A"},
+            {id:180,name:"Stefan Gaubatz",role:"Co-Founder | numi",loc:"N/A"},
+            {id:181,name:"Navaneetha Krishnan",role:"Social Media Sales Specialist",loc:"N/A"},
+            {id:182,name:"Tarun Kotagiri",role:"Co-Founder & CFO - Trinefly Pvt. Ltd.",loc:"India"},
+            {id:183,name:"Bork Morfaw",role:"Founder | Ex-Freshfields, Ex-N26",loc:"N/A"},
+            {id:184,name:"Jonghan Lee",role:"Startup Business Accelerator at Korea",loc:"South Korea"},
+            {id:185,name:"SACHINDRA TRIPATHI",role:"Founder & Director at Naturetech Energy",loc:"India"},
+            {id:186,name:"Hideki Matsuya",role:"CEO",loc:"N/A"},
+            {id:187,name:"Ferdinand Toma",role:"Founder at Maytrix",loc:"N/A"},
+            {id:188,name:"Andrii Kalinichenko",role:"Founder at Parkmo",loc:"N/A"},
+            {id:189,name:"Tobias Jankowiak",role:"CEO, Founder at SolarRanch",loc:"N/A"},
+            {id:190,name:"Robert Huber",role:"co-Founder at Veridat and Radmantis",loc:"N/A"},
+            {id:191,name:"Jamie Jungmoo Park",role:"CEO, ATU Partners | Chairman, DRX Group",loc:"N/A"},
+            {id:192,name:"Dario Fainsod",role:"Co Founder / Director @4i digital",loc:"N/A"},
+            {id:193,name:"Sweety Jancy",role:"Aspiring CEO & Innovator",loc:"N/A"},
+            {id:194,name:"Sam Lee",role:"CTO, FactBlock",loc:"N/A"},
+            {id:195,name:"Zach Park",role:"Co-founder @ Dooi",loc:"N/A"},
+            {id:196,name:"Javlon Juraev",role:"Co-Founder & CTO | Leading HealthTech",loc:"N/A"},
+            {id:197,name:"Buyanzaya Otgonbayar",role:"CEO of Architectural engineering company",loc:"N/A"},
+            {id:198,name:"Jason (HyungJin) Tak",role:"COO at FACTBLOCK",loc:"N/A"},
+            {id:199,name:"Junyoung Lee",role:"Founder of Duudle Inc.",loc:"South Korea"},
+            {id:200,name:"Lee Ji-sun",role:"ONYDU founder",loc:"South Korea"},
+            {id:201,name:"Hikaru Kawauchi",role:"Chief Executive Officer at Kumori Labo, Inc.",loc:"N/A"},
+            {id:202,name:"Hamza HAMHAM",role:"Entrepreneur | Cofondateur de Prime Event",loc:"N/A"},
+            {id:203,name:"Juan Bosco de la Rocha",role:"Managing Director/Partner at Andersen",loc:"N/A"},
+            {id:204,name:"Adam Sunghan You",role:"BANF CEO & Founder",loc:"N/A"},
+            {id:205,name:"Taegoan Bae",role:"Oyster able CEO",loc:"N/A"},
+            {id:206,name:"Sangyong Kim",role:"RenewEarth Lab Inc. Co-founder",loc:"N/A"},
+            {id:207,name:"Gudiya Rao",role:"Founder @ GroShala",loc:"N/A"},
+            {id:208,name:"Minseo Kim",role:"building @arky.so",loc:"N/A"},
+            {id:209,name:"Yassmin Yousri",role:"Founder and CEO of Butterfly digital marketing",loc:"N/A"},
+            {id:210,name:"Bruna Rezende",role:"Founder & CEO at IRIS I IRIADA",loc:"N/A"},
+            {id:211,name:"Thomas Gautier",role:"CEO & Board Member at Freto",loc:"N/A"},
+            {id:212,name:"Bryce Stirton",role:"Co-Founder & CEO at Navigator",loc:"N/A"},
+            {id:213,name:"Sooah Lee",role:"Founder & CEO @BubbleShare",loc:"N/A"},
+            {id:214,name:"asmaa maher",role:"Entrepreneur driving business growth",loc:"N/A"},
+            {id:215,name:"Olha Arkusha",role:"Founder of Qoolli",loc:"N/A"},
+            {id:216,name:"Anas Ayran",role:"Co-Founder at AyranStudios",loc:"N/A"},
+            {id:217,name:"Teerin Julsawad",role:"Co-Founder & CMO at Nightify",loc:"N/A"},
+            {id:218,name:"Manh Hung",role:"Founder, CEO @ CVMap",loc:"Vietnam"},
+            {id:219,name:"SeungHyun Kim",role:"Co-founder of Aristo",loc:"N/A"},
+            {id:220,name:"Magnus Schjølberg",role:"Co-founder of Affilial.com",loc:"N/A"},
+            {id:221,name:"Matthew Dickerson",role:"Tdooz - Founder / CEO",loc:"N/A"},
+            {id:222,name:"Fredrik Tveraaen",role:"Co-founder/developer | ShoppingNorge",loc:"Norway"},
+            {id:223,name:"Harhim Park",role:"CEO at AILIKE.ME Inc.",loc:"N/A"},
+            {id:224,name:"Aarav Global Group",role:"Indian multinational conglomerate",loc:"India"},
+            {id:225,name:"Maryam khaled",role:"Co-Founder at Sparkup Recruitment Agency",loc:"N/A"},
+            {id:226,name:"kwanhyeong Lee",role:"CEO @Nucode Co., Ltd.",loc:"N/A"},
+            {id:227,name:"Beer Poonnotok",role:"Founder and ECD. DO. ASIA.",loc:"N/A"},
+            {id:228,name:"Faris Sharafli",role:"Founder & Student",loc:"N/A"},
+            {id:229,name:"Shameer N S",role:"Founder & CEO @ Chapterinfo Tech Solutions",loc:"N/A"},
+            {id:230,name:"OhTaek Son",role:"CEO of POLYAGRO KOREA",loc:"South Korea"},
+            {id:231,name:"Joseph Cho",role:"Co-founder & Sales Manager @ Teiren",loc:"N/A"},
+            {id:232,name:"David Kim",role:"CEO at TMI Korea",loc:"South Korea"},
+            {id:233,name:"Adeal Rizvi",role:"Property Strategist",loc:"N/A"},
+            {id:234,name:"Mireille Halim",role:"Founder @ Sesen Wellness and Beauty, LLC",loc:"N/A"},
+            {id:235,name:"Mohamed Abd El Rahman",role:"Co-Founder & GM",loc:"N/A"},
+            {id:236,name:"Erkin Çakar",role:"Co-Founder at LOGGMA",loc:"Turkey"},
+            {id:237,name:"Ji Hyun Moon",role:"HR Leader at SK Electlink",loc:"South Korea"},
+            {id:238,name:"Ji Byung-gon",role:"CEO / Corporate Management",loc:"South Korea"},
+            {id:239,name:"Theerakarn Maiwong",role:"Tech Entrepreneur | CEO at Planthia Tech",loc:"Thailand"},
+            {id:240,name:"Lukas Shin",role:"Founder at Potential Inc",loc:"N/A"},
+            {id:241,name:"Sihwa Kim",role:"BIND CEO & Co-founder",loc:"N/A"},
+            {id:242,name:"Aykut Otu",role:"Founder - İçerikmatik",loc:"Turkey"},
+            {id:243,name:"Glen Kang",role:"Founder & CEO at EOD (Events On Demand)",loc:"N/A"},
+            {id:244,name:"Spondon Nath",role:"Building XTrend Lab",loc:"N/A"},
+            {id:245,name:"Serkan Koc",role:"Co-Founder and CEO",loc:"Turkey"},
+            {id:246,name:"Typhon Namira",role:"Founder of PulseMeal",loc:"N/A"},
+            {id:247,name:"Shanvi Impex",role:"Entrepreneur at Shanvi impex",loc:"N/A"},
+            {id:248,name:"Harish T",role:"Founder of HornX Lifestyle",loc:"N/A"},
+            {id:249,name:"Rey Tiempo",role:"CCO | Gaming Specialist",loc:"N/A"},
+            {id:250,name:"Yang Jun-yeong",role:"Keynoize Founder",loc:"South Korea"},
+            {id:251,name:"Ziko Tesic",role:"CEO at Naovis",loc:"N/A"},
+            {id:252,name:"Mate Papava",role:"Co-founder @stamo.ai",loc:"N/A"},
+            {id:253,name:"Liran Kapel",role:"Founder & CEO at Liran Kapel Animation",loc:"N/A"},
+            {id:254,name:"Philip Lee",role:"GLOBAL BUSINESS MAN",loc:"N/A"},
+            {id:255,name:"Pelé Philipp A. Weber",role:"Co-owner of Nomad Fest (Bansko)",loc:"Bulgaria"},
+            {id:256,name:"Sangwon Im",role:"Co-Founder & CEO @ inblog.ai",loc:"N/A"},
+            {id:257,name:"Pancho González",role:"Co-Founder & CCO at Inbrax",loc:"Chile"},
+            {id:258,name:"Kyle (Changmin) Yoon",role:"3x Serial Entrepreneur | EIR/Korea",loc:"South Korea"},
+            {id:259,name:"Damisa Ongsiriwattana",role:"Co-Founder Sour Bangkok",loc:"Thailand"},
+            {id:260,name:"David Ledson MSc",role:"Board Member and VP of Strategy",loc:"N/A"},
+            {id:261,name:"Arron Young",role:"Founder&CEO of Custyle",loc:"N/A"},
+            {id:262,name:"Oskar Solberg",role:"Founder & CEO",loc:"N/A"},
+            {id:263,name:"Jung Ha-jin",role:"TimeTree Korea | Serial Entrepreneur",loc:"South Korea"},
+            {id:264,name:"Olivia Dianina Purba",role:"Entrepreneur | Social & Environmental",loc:"N/A"},
+            {id:265,name:"Nikolai Mathias Furuseth",role:"Co-Founder & CEO, Fenori IO",loc:"N/A"},
+            {id:266,name:"Michael Grimm",role:"CEO SPONSOR",loc:"N/A"},
+            {id:267,name:"Yeju Ryu",role:"Founder & CEO of BEYOND BUY",loc:"N/A"},
+            {id:268,name:"Arne Koehler",role:"Founder & Owner | Sustainable Success",loc:"N/A"},
+            {id:269,name:"Eman Kamal",role:"Co-Founder at AZDAR",loc:"N/A"},
+            {id:270,name:"Seung-eun Myung",role:"VentureSquare Chief Executive Officer",loc:"N/A"},
+            {id:271,name:"YOUNGJIN PARK, Ph.D.",role:"COO/Research Director at DeepSeers",loc:"South Korea"},
+            {id:272,name:"Innocent Mahufe",role:"Entrepreneur",loc:"N/A"},
+            {id:273,name:"Dustin Hemesath",role:"3x Entrepreneur | Leadership",loc:"N/A"},
+            {id:274,name:"Abdulkadir Zümrüt",role:"Founder of Netcloud Information Tech",loc:"Turkey"},
+            {id:275,name:"Omar Zedan",role:"Founder @ Mazza AI",loc:"N/A"},
+            {id:276,name:"Lee Sung-yong",role:"Enterpreneur",loc:"South Korea"},
+            {id:277,name:"Simen Borge",role:"CEO & Founder at EcoProfit",loc:"N/A"},
+            {id:278,name:"Jamie Fridman",role:"Co-Founder & Lead Developer @ Daily Integral",loc:"N/A"},
+            {id:279,name:"Laurent Mathieu",role:"CEO NASH - agence web au Maroc",loc:"Morocco"},
+            {id:280,name:"Hagyeong (Patrick) Kim",role:"CEO @ZD Ventures",loc:"N/A"},
+            {id:281,name:"Rogan Frazer",role:"Materiality | Co-Founder | CIO/CPO",loc:"N/A"},
+            {id:282,name:"Per Sunde",role:"CTO @ GenPage",loc:"N/A"},
+            {id:283,name:"Dongseok Lee",role:"CEO & Founder at Devil's Candy Inc.",loc:"N/A"},
+            {id:284,name:"youngkyu kim",role:"HumanInterface CEO",loc:"N/A"},
+            {id:285,name:"CHO SUHYUN",role:"CEO of BauerLab",loc:"South Korea"},
+            {id:286,name:"Sukhyun Koh",role:"CEO at OYD",loc:"N/A"},
+            {id:287,name:"Hiroki Sawai",role:"Founder of ROOTTEAM",loc:"N/A"},
+            {id:288,name:"Kevin Karlsson",role:"Scale Your Ecom Brand",loc:"N/A"},
+            {id:289,name:"Daniel Faloppa",role:"Founder & CEO @ Equidam",loc:"N/A"},
+            {id:290,name:"Mima Nedelcovych",role:"Chairman, AfricaGlobal Schaffer",loc:"Africa/Global"},
+            {id:291,name:"Daniel Marial Reng Kudum",role:"Founder, Nile Green Packaging Ltd.",loc:"N/A"},
+            {id:292,name:"Jun Yoon",role:"Founder & CEO of NPR",loc:"N/A"},
+            {id:293,name:"Haley Kim",role:"Co-Founder & VP of SWRL",loc:"N/A"},
+            {id:294,name:"Taeil Ha",role:"AX Transformation AI Game Development",loc:"South Korea"},
+            {id:295,name:"Jeongho Moon",role:"Co-founder | @24.5Corp",loc:"N/A"},
+            {id:296,name:"Mahmoud Ismail",role:"Founder & Board Member @ Master Artists",loc:"N/A"},
+            {id:297,name:"Khalil Ben Ali",role:"Founder of Qwarko",loc:"N/A"},
+            {id:298,name:"Gi-Hoon Nam, MD, PhD",role:"CEO at SHIFTBIO",loc:"South Korea"},
+            {id:299,name:"Aadarsh Singh",role:"Co-Founder and CEO @Resolvia",loc:"N/A"},
+            {id:300,name:"Zach Keeney",role:"Entrepreneur | Startups | Ai",loc:"N/A"},
+            {id:301,name:"chanho kim",role:"SEED CEO&Co-founder",loc:"N/A"},
+            {id:302,name:"Manabu Miyazaki",role:"CEO at Aristol Inc.",loc:"N/A"},
+            {id:303,name:"HANA YOO",role:"Founder & CEO at hazeq",loc:"N/A"},
+            {id:304,name:"Kim Young-hoon",role:"Co-Founder & CBO at Meissa Inc.",loc:"South Korea"},
+            {id:305,name:"Julie Jihyun Kang",role:"CEO & Managing Partner at Serviceplan Korea",loc:"South Korea"},
+            {id:306,name:"Alex Andarakis",role:"Founder & Managing Director",loc:"N/A"},
+            {id:307,name:"Muthukumar Murugan",role:"Founder – Dosainfinity",loc:"India"},
+            {id:308,name:"Hong Jae-hak",role:"Quedot | Co-Founder",loc:"South Korea"},
+            {id:309,name:"TaeYoung Noh",role:"Customized Software Development",loc:"South Korea"},
+            {id:310,name:"Yong Cheol Kim",role:"Founder, CEO & CTO",loc:"N/A"},
+            {id:311,name:"Sheldon Inwentash",role:"CEO & CIO at ThreeD Capital Inc.",loc:"N/A"},
+            {id:312,name:"Tak Inoue",role:"CEO at MPA America Inc.",loc:"USA"},
+            {id:313,name:"JUNGHWAN KIM",role:"WEVEN CEO",loc:"N/A"},
+            {id:314,name:"Jimmy Andersson",role:"Co-Founder & Creative Director",loc:"N/A"},
+            {id:315,name:"Skill Orbit",role:"SkillOrbitPk | Pakistan's Freelance Platform",loc:"Pakistan"},
+            {id:316,name:"Alex Seo",role:"Founder & Project Lead at Frink Token",loc:"N/A"},
+            {id:317,name:"Juma Al-JouJou",role:"CEO Karma Games",loc:"N/A"},
+            {id:318,name:"Maciej Adamski",role:"CEO & Co-Founder @dataglitch",loc:"N/A"},
+            {id:319,name:"Wala Kasmi",role:"Co-Founder @ClassX",loc:"N/A"},
+            {id:320,name:"Yasser Shaker",role:"Author/ CEO of Spark Events",loc:"N/A"},
+            {id:321,name:"Nopharit Dusadeedumkoeng",role:"CCO at TBWA\\Juice Bangkok",loc:"Thailand"},
+            {id:322,name:"Michel Zavagna Gralha",role:"Socio-fundador da Zavagna Gralha",loc:"Brazil"},
+            {id:323,name:"Hiroshi Soda",role:"CEO-LinkAd",loc:"N/A"},
+            {id:324,name:"Leonardo Benitez",role:"Supply Chain Consulting",loc:"Brazil"},
+            {id:325,name:"Marcus Manzano",role:"CCO | Commercial Director",loc:"N/A"},
+            {id:326,name:"Antonio Wrobleski",role:"President and board member BBM Logistica",loc:"Brazil"},
+            {id:327,name:"Edson Carillo",role:"Partner | Founder & Chairperson",loc:"N/A"},
+            {id:328,name:"Remko Vochteloo",role:"Strategic COO/CFO for International Schools",loc:"N/A"},
+            {id:329,name:"Tony Choi",role:"CEO of Infofla Inc.",loc:"South Korea"},
+            {id:330,name:"Songhyeon Lee",role:"CEO, LowSpecLab Co., Ltd.",loc:"South Korea"},
+            {id:331,name:"Joy(Jeongheun) Lee",role:"CPO @fittrix",loc:"N/A"},
+            {id:332,name:"Jae-Mun Choi",role:"CEO at Calici, Co., Ltd.",loc:"N/A"},
+            {id:333,name:"Hieu Nguyen Van",role:"Reach to our goal.",loc:"Vietnam"},
+            {id:334,name:"Seoyeon Jang",role:"Director @ Korea Technology Finance Corp",loc:"South Korea"},
+            {id:335,name:"Jan Hellqvist",role:"CEO, Chairman, Senior Advisor",loc:"N/A"},
+            {id:336,name:"Orkhan Aghamirzayev",role:"Founder of KOCOS Korean Cosmetics",loc:"N/A"},
+            {id:337,name:"Henry Kim",role:"Founder & CEO at ZIAN BIO",loc:"N/A"},
+            {id:338,name:"Sam K",role:"Founder & Lead IT Consultant at Kokosweb",loc:"N/A"},
+            {id:339,name:"Jongchan Park",role:"Founder @ Bricksum",loc:"N/A"},
+            {id:340,name:"John Cho",role:"Co-Founder / Startup / Social Venture",loc:"N/A"},
+            {id:341,name:"Sung Bong Kang",role:"CEO Of NEWNOP Group",loc:"N/A"},
+            {id:342,name:"Ramos Chang",role:"Founder of Juic3 Labs",loc:"N/A"},
+            {id:343,name:"Ashraf Abdelsadek",role:"Co-Founder | Egyptian Freight",loc:"Egypt"},
+            {id:344,name:"Lucky Dissanayake",role:"Climate Entrepreneur & Eco-warrior",loc:"N/A"},
+            {id:345,name:"Beth O'Brien",role:"Creative Co-Founder at Princess",loc:"N/A"},
+            {id:346,name:"Chang Yong(Charles) Lee",role:"Korea Blockchain Entrepreneur Association",loc:"South Korea"},
+            {id:347,name:"Sungyong Park, MD",role:"Founder & Medical Doctor at Edenlux",loc:"N/A"},
+            {id:348,name:"Dr. Ahmed Dwidar",role:"Business consultant",loc:"N/A"},
+            {id:349,name:"Arsyi R Fatah",role:"CEO & Co-Founder | Antler ID2",loc:"Indonesia"},
+            {id:350,name:"Nsyeong Kim",role:"Co-founder at Finnest",loc:"N/A"},
+            {id:351,name:"Tony Spagnolo",role:"VP Design at DNS Industries",loc:"N/A"},
+            {id:352,name:"Yumin Jung",role:"Co-Founder @PacoStudio",loc:"N/A"},
+            {id:353,name:"Anh-Phuong (Félix) TA",role:"Co-Founder, CEO",loc:"Vietnam"},
+            {id:354,name:"Shawn Park",role:"FUNCTION12 CEO",loc:"N/A"},
+            {id:355,name:"Jay Lee",role:"Co-founder @Tachyon",loc:"N/A"},
+            {id:356,name:"Nha Tran",role:"THUAN THANH TECH Co .Ltd",loc:"Vietnam"},
+            {id:357,name:"Brandon Guo",role:"Founder & CEO",loc:"N/A"},
+            {id:358,name:"Ian Kwanhyun Cho",role:"expand k - Founder & CEO",loc:"N/A"},
+            {id:359,name:"Young-hyean Nam",role:"CEO/CTO - NuriBio Inc.",loc:"N/A"},
+
+            // Phase 3 (360-514)
+            {id:360,name:"Jonas Elmasri",role:"CEO & Host @ The Corporate Bull",loc:"N/A"},
+            {id:361,name:"Emil Sejer",role:"Co-Founder // Perfect Jeans",loc:"N/A"},
+            {id:362,name:"CHOI SEONSIN",role:"CTO/IT Project Manager",loc:"South Korea"},
+            {id:363,name:"dongguk ahn",role:"DGPLANET Founder, CEO",loc:"South Korea"},
+            {id:364,name:"Byeon Ju-seong",role:"MOGCNI CEO",loc:"South Korea"},
+            {id:365,name:"Leopold Kolbeinsen",role:"Redefinerer hvordan gründere...",loc:"Norway"},
+            {id:366,name:"Anh Phu Nguyen",role:"CDP & Marketing Automation Consultant",loc:"Vietnam"},
+            {id:367,name:"Lucie L.",role:"AI•DX• Cloud Business Development",loc:"South Korea"},
+            {id:368,name:"Yeon Tae Kim",role:"CTO at Herren",loc:"South Korea"},
+            {id:369,name:"Mohammed Matter",role:"Co-Founder | Editor",loc:"N/A"},
+            {id:370,name:"Mohamed Ashraf Galal",role:"Entrepreneur | BIS Student",loc:"N/A"},
+            {id:371,name:"Jeon Sungjun",role:"CEO",loc:"South Korea"},
+            {id:372,name:"Huzaifa Ahmad",role:"SEO Expert",loc:"N/A"},
+            {id:373,name:"Chintamani Joshi",role:"Winner of Quasar 2.0",loc:"India"},
+            {id:374,name:"Mallak Elazhary",role:"Business Development Executive",loc:"N/A"},
+            {id:375,name:"Heesu Choi",role:"Co-Founder & CEO at RuDi PenGuins",loc:"South Korea"},
+            {id:376,name:"Yusuf Can Uz, Ph.D.",role:"Co-founder & CEO",loc:"Turkey"},
+            {id:377,name:"Nizar Budler",role:"CEO & Founder @ Amplifyhub",loc:"N/A"},
+            {id:378,name:"Sunghwan Choi",role:"LogiBrothera CTO",loc:"South Korea"},
+            {id:379,name:"İrfan Çözge",role:"Co-founder @MirAI",loc:"Turkey"},
+            {id:380,name:"Dina Soliman",role:"Co-Founder, REBLOX",loc:"Egypt"},
+            {id:381,name:"Filip Filipi",role:"Founder & President of 28. Jun",loc:"N/A"},
+            {id:382,name:"Faouzi BELKAID",role:"Founder chez noorways",loc:"N/A"},
+            {id:383,name:"Yash Pawar",role:"Ex-Microsoft FRT Intern",loc:"India"},
+            {id:384,name:"Pankaj Chandratrey",role:"Co-Founder & Technical Director",loc:"N/A"},
+            {id:385,name:"Jong-Hyun Kim",role:"CEO, Founder, DUGURU Singapore",loc:"Singapore/Korea"},
+            {id:386,name:"Lee Ju-ho",role:"CTO",loc:"South Korea"},
+            {id:387,name:"Pulkit Gupta",role:"Founder @ Tsenta",loc:"India"},
+            {id:388,name:"Jiwoo Hwang",role:"Product builder",loc:"South Korea"},
+            {id:389,name:"Muza Nuri",role:"CEO | Bildung & Beruf GmbH",loc:"Germany"},
+            {id:390,name:"Muhammed Abdulhameed",role:"Founder at Elmobasher",loc:"N/A"},
+            {id:391,name:"Lee Hye-yeon",role:"Founder(CTO) @ganada",loc:"South Korea"},
+            {id:392,name:"Park Kang-hwi",role:"Senior Sales Manager",loc:"South Korea"},
+            {id:393,name:"Dmitriy Kim",role:"Co-founder @ Genius Academy",loc:"N/A"},
+            {id:394,name:"Son Bo-min",role:"main CEO",loc:"South Korea"},
+            {id:395,name:"Bumin Kim",role:"Fleeklounge CTO",loc:"South Korea"},
+            {id:396,name:"Sean Sunbin You",role:"Co-Founder @ Dalpha",loc:"South Korea"},
+            {id:397,name:"Simwon Lee",role:"CEO | Golf Training Innovation",loc:"South Korea"},
+            {id:398,name:"Hyeonjin Kim",role:"CEO @Heartyworks",loc:"South Korea"},
+            {id:399,name:"Laura Abduhalikova",role:"Ophthalmologist & Startup Founder",loc:"N/A"},
+            {id:400,name:"Seymur Hamidov",role:"Co-Founder & Managing Partner",loc:"Azerbaijan"},
+            {id:401,name:"Prakash Mehta",role:"Co-Founder Lumapix",loc:"N/A"},
+            {id:402,name:"HYUN JONG (현종) KIM (김)",role:"Founder & CEO of Weraser",loc:"South Korea"},
+            {id:403,name:"Hosam Hosny",role:"Owner & Founder of 3C",loc:"Egypt"},
+            {id:404,name:"MJ So",role:"founder",loc:"N/A"},
+            {id:405,name:"André Vlok",role:"Founder, Builder & CEO @ Paia",loc:"N/A"},
+            {id:406,name:"Lee Jung-yeon",role:"Founder ex-Danggeun Market",loc:"South Korea"},
+            {id:407,name:"Mohamed Younis",role:"Founder & Vice President CATS",loc:"Egypt"},
+            {id:408,name:"Jaeho Jeong",role:"Founder at ORCAR",loc:"South Korea"},
+            {id:409,name:"Hitay Öztürk",role:"Creative Director & Founder MCG",loc:"Turkey"},
+            {id:410,name:"Jonathan Pham",role:"Co-Founder & CEO at Wonderworks Studios",loc:"Vietnam/USA"},
+            {id:411,name:"Jaewoong Lee",role:"COO & Co-founder @ VMONSTER Inc.",loc:"South Korea"},
+            {id:412,name:"Jaehyuk Yang",role:"Hello, I am a founder",loc:"South Korea"},
+            {id:413,name:"Deeplearn TechSchool",role:"Founder at Deeplearn Techschool Pvt Ltd",loc:"India"},
+            {id:414,name:"Shourya Jha",role:"Founder & CEO, Nelieo AI",loc:"India"},
+            {id:415,name:"Eunyul Kim",role:"CEO at Eastsea Brothers",loc:"South Korea"},
+            {id:416,name:"SEUNG HO CHOI",role:"Founder @ Entry AI",loc:"South Korea"},
+            {id:417,name:"Jiye Kim",role:"Co-founder @Makers' Lab",loc:"South Korea"},
+            {id:418,name:"Chloe Choi",role:"Founder & CEO of bontonic SEOUL",loc:"South Korea"},
+            {id:419,name:"Ivan Pulkkinen",role:"Founder & CEO yrityksessä Montelle Agency",loc:"Finland"},
+            {id:420,name:"Jinu M Panicker",role:"Co-Founder at i8 solutions",loc:"N/A"},
+            {id:421,name:"Karel Juřička",role:"Co-Founder & CEO of Webout",loc:"Czechia"},
+            {id:422,name:"Zion Bong",role:"CEO/Founder at Aenon",loc:"South Korea"},
+            {id:423,name:"KYUNGJUN LIM",role:"Founder of Freederia.com",loc:"South Korea"},
+            {id:424,name:"Hesham El Kholy",role:"Founder & CEO @Markeve Group",loc:"Egypt"},
+            {id:425,name:"Min Gyeong Park",role:"CEO @Clody",loc:"South Korea"},
+            {id:426,name:"EJ Kim",role:"Founder at Superplace",loc:"South Korea"},
+            {id:427,name:"Minsoo Kim",role:"CEO @ SYMPLE",loc:"South Korea"},
+            {id:428,name:"JinSeong PARK",role:"Business Executive",loc:"South Korea"},
+            {id:429,name:"Youngbin Kim",role:"Country Manager",loc:"South Korea"},
+            {id:430,name:"Goivia Tavarez",role:"Not Founder & CEO @ GEEKSPEAKER",loc:"N/A"},
+            {id:431,name:"Ahmed Elshenawy",role:"Founder & CEO @ Artsy Silver",loc:"Egypt"},
+            {id:432,name:"Sung Kang",role:"Founder & CEO of EarthMera",loc:"South Korea"},
+            {id:433,name:"Harsh Parlikar",role:"Founder at Arteo",loc:"India"},
+            {id:434,name:"Mohammed Askar",role:"Co-Founder @ Stova kitchens",loc:"N/A"},
+            {id:435,name:"Amr Rafik",role:"Co-Founder @ Stova",loc:"N/A"},
+            {id:436,name:"HEEJU MUN",role:"--",loc:"South Korea"},
+            {id:437,name:"Naomi Loger",role:"Founder & CEO, The Work Loft",loc:"N/A"},
+            {id:438,name:"Dongyeop (Aldo) Shin",role:"CEO @QSquare",loc:"South Korea"},
+            {id:439,name:"Priya Babariya",role:"Habit & Lifestyle Coach",loc:"India"},
+            {id:440,name:"Jian Bak",role:"Founder @ ARCOA",loc:"South Korea"},
+            {id:441,name:"MinSeok Kong",role:"NAVER Z HR",loc:"South Korea"},
+            {id:442,name:"Ryuwon Kong",role:"CEO @ Kong & Kong studios",loc:"South Korea"},
+            {id:443,name:"Sang-Jeong Park",role:"Entrepreneur",loc:"South Korea"},
+            {id:444,name:"Omar Shawky",role:"Founder & CEO at Cupid Solutions",loc:"Egypt"},
+            {id:445,name:"Mike Jung",role:"COO @ GUTI",loc:"South Korea"},
+            {id:446,name:"Baek Gyu-sung",role:"Front-end developer",loc:"South Korea"},
+            {id:447,name:"Reem Tarek",role:"Co-Founder ... at Cudds Egypt",loc:"Egypt"},
+            {id:448,name:"Muawia Mahboob",role:"Co-Founder at Wotbix",loc:"N/A"},
+            {id:449,name:"Kim Ki-han",role:"CEO, Co-Founder at WePair",loc:"South Korea"},
+            {id:450,name:"Song Seon-wook",role:"MOAT Experience CEO",loc:"South Korea"},
+            {id:451,name:"Amir Usmanov",role:"CEO and Founder CODE 84",loc:"N/A"},
+            {id:452,name:"Gabriel Haratani",role:"Co-Founder We Make Glasa Intelligent",loc:"Brazil"},
+            {id:453,name:"Lukas Danc",role:"Founder | Cardanians",loc:"N/A"},
+            {id:454,name:"Sunny Wang",role:"Co-Founder @ ViVA Online",loc:"N/A"},
+            {id:455,name:"Juan Lee",role:"Founder @Candid",loc:"N/A"},
+            {id:456,name:"Myeongseok Seo",role:"Seoyeon Company CEO",loc:"South Korea"},
+            {id:457,name:"JoonHyuk Nam",role:"Creator Economy / Patent Attorney",loc:"South Korea"},
+            {id:458,name:"Mithunraj K A",role:"Founder, Zucus",loc:"India"},
+            {id:459,name:"Andrew Joo",role:"co-founder @ youngand",loc:"South Korea"},
+            {id:460,name:"Youjun Lee",role:"AIM Intelligence CPO / Co-founder",loc:"South Korea"},
+            {id:461,name:"Yoon Shin",role:"Massenger for automatic decision",loc:"South Korea"},
+            {id:462,name:"KYUNGHOON SOE",role:"Co-Founder @ SPSCOS",loc:"South Korea"},
+            {id:463,name:"kiwoong choi",role:"Founder & Director at FLAKE",loc:"South Korea"},
+            {id:464,name:"Linh Dinh",role:"Account Manager at Icetea Software",loc:"Vietnam"},
+            {id:465,name:"Min Jung Kim",role:"Founder... of Thomas Studio",loc:"South Korea"},
+            {id:466,name:"Hovik Martirosyan",role:"Founder of CheckLur",loc:"Armenia"},
+            {id:467,name:"Mahalakshmi Sarangabani",role:"Aspiring Co-Founder",loc:"India"},
+            {id:468,name:"PC Masanque",role:"CEO & PMO Director",loc:"N/A"},
+            {id:469,name:"Yongwon Ryu",role:"COO&Co-founder @Far Eastern",loc:"South Korea"},
+            {id:470,name:"Okada Juri",role:"Founder & CEO at OSHIPay Pte. Ltd.",loc:"Japan/Singapore"},
+            {id:471,name:"Kim Tae-hoon",role:"CEO",loc:"South Korea"},
+            {id:472,name:"amer ehap",role:"Digital Marketing Specialist",loc:"Egypt"},
+            {id:473,name:"Nam Min-woo",role:"Business Development",loc:"South Korea"},
+            {id:474,name:"Ahmed El Anany",role:"Co-Founder at ESTBN",loc:"Egypt"},
+            {id:475,name:"Seon Woo Kim",role:"iOS Developer of Clody",loc:"South Korea"},
+            {id:476,name:"Muhammed Imam",role:"Founder & CEO of Blue Dash Co.",loc:"Africa"},
+            {id:477,name:"Katy Dang",role:"SOTATEK KOREA",loc:"Vietnam/Korea"},
+            {id:478,name:"Yechan Jeon",role:"FluentT CEO",loc:"South Korea"},
+            {id:479,name:"Onesmus Mutiso",role:"Attended Kisii university",loc:"Kenya"},
+            {id:480,name:"Lee Hyun-seung",role:"Serial Entrepreneur",loc:"South Korea"},
+            {id:481,name:"Gene Young Kim",role:"The Partners HR Consulting, CEO",loc:"South Korea"},
+            {id:482,name:"Jayden Park",role:"Co-Founder @GIGR, Inc.",loc:"South Korea"},
+            {id:483,name:"Michelle Cho",role:"CEO of SINGING BEETLE",loc:"South Korea"},
+            {id:484,name:"Rishabh Raj",role:"Co-Founder Kalp",loc:"India"},
+            {id:485,name:"Tetiana Kodliuk",role:"Founder & CEO @ Odyssea AI",loc:"Ukraine"},
+            {id:486,name:"Arash Rad",role:"Co-founder of 360 Agency",loc:"N/A"},
+            {id:487,name:"Jungmin Hong",role:"AI Filmmaker",loc:"South Korea"},
+            {id:488,name:"Eric Park",role:"Founder @AppBuildChat",loc:"South Korea"},
+            {id:489,name:"Atsuki MITSUYORI",role:"Founding COO/CFO of SOXAI Inc.",loc:"Japan"},
+            {id:490,name:"Buseung So",role:"bootkorea",loc:"South Korea"},
+            {id:491,name:"Ali Gümüş",role:"Sequtech şirketinde Founder",loc:"Turkey"},
+            {id:492,name:"Tony Lam",role:"Entrepreneur",loc:"N/A"},
+            {id:493,name:"Jin Jeong",role:"Founder & CEO at Pink Packer",loc:"South Korea"},
+            {id:494,name:"Arne Troøien",role:"Scaling Norwegian brands",loc:"Norway"},
+            {id:495,name:"Jaebin Cho",role:"Security Engineer",loc:"South Korea"},
+            {id:496,name:"Ali Zanjani (MBA, MSc)",role:"Founding Director @ ZanjX",loc:"N/A"},
+            {id:497,name:"Hany Ashour",role:"Founder & CVO @ ZAH",loc:"Egypt"},
+            {id:498,name:"Jisung Han",role:"Co Founder & Managing Director @ SURFF",loc:"South Korea"},
+            {id:499,name:"suk-won Yoon",role:"Connecting the dots.",loc:"South Korea"},
+            {id:500,name:"Louis Pham",role:"Founder & CEO @ UPP Global",loc:"Vietnam"},
+            {id:501,name:"Natasha Newbold",role:"Researcher working on AI",loc:"N/A"},
+            {id:502,name:"Rodolfo Turco",role:"Founder at Turcotronics",loc:"N/A"},
+            {id:503,name:"Yeongyu Yoo",role:"Business Development Lead @MOIN",loc:"South Korea"},
+            {id:504,name:"Roy Lee",role:"Marketing Experts",loc:"South Korea"},
+            {id:505,name:"Myeong Tae-gyu",role:"Business Developer",loc:"South Korea"},
+            {id:506,name:"David Yunhee Lee",role:"Founder & CEO @ Mobidoo",loc:"South Korea"},
+            {id:507,name:"Ahn Dae-wan",role:"Vice President",loc:"South Korea"},
+            {id:508,name:"Jekeun Woo",role:"Founder & CEO at Crimson Amber, Inc.",loc:"South Korea"},
+            {id:509,name:"JEPIL KIM",role:"Founder of AidALL",loc:"South Korea"},
+            {id:510,name:"Suman Kumar",role:"Co Founder ... at Hanguk Foods",loc:"India/Korea"},
+            {id:511,name:"Seun Ha",role:"PURE&K Inc. CEO",loc:"South Korea"},
+            {id:512,name:"Byungwook Jeon",role:"Co-Founder & CEO at mentat",loc:"South Korea"},
+            {id:513,name:"Gibeom Park",role:"We are building running app Calc Run!",loc:"South Korea"},
+            {id:514,name:"Santiago Ceballos",role:"Creative Director",loc:"N/A"},
+
+            // Phase 4 (515-652)
+            {id:515,name:"Hyewoo Kim",role:"Merchandiser | Business Developer",loc:"South Korea"},
+            {id:516,name:"YunJinho",role:"CHOIN LAB Director",loc:"South Korea"},
+            {id:517,name:"Sanghyeok Park",role:"Co-Founder of Dashbo AI",loc:"South Korea"},
+            {id:518,name:"Shinwook Park",role:"Refundy CEO, Co-Founder",loc:"South Korea"},
+            {id:519,name:"Sam Lee",role:"Founder of SAMART Design Group, inc.",loc:"N/A"},
+            {id:520,name:"Munis Alam",role:"Founder & Managing Director at Cintel Financial",loc:"N/A"},
+            {id:521,name:"Vo Van Dat",role:"Founder & CEO tai OKY Agency",loc:"Vietnam"},
+            {id:522,name:"Parisha Sharma",role:"Founder, Evelora Co.",loc:"N/A"},
+            {id:523,name:"Blu3 AI",role:"Business Development Manager at Blu3AI",loc:"N/A"},
+            {id:524,name:"Yanal Abdo",role:"I help companies scale",loc:"N/A"},
+            {id:525,name:"Ronald Luo",role:"Co-Founder & CTO @ Prinsur",loc:"N/A"},
+            {id:526,name:"Lina W",role:"Founder & Principal at Wealthy Living",loc:"N/A"},
+            {id:527,name:"Mohamed Azmy",role:"Entrepreneur | AI & Business Development",loc:"N/A"},
+            {id:528,name:"Jihan Chung",role:"Founder @ zammy ai",loc:"South Korea"},
+            {id:529,name:"Dongpyo Hong",role:"Founder & CEO, KnowWhere Bridge Co.",loc:"South Korea"},
+            {id:530,name:"Ahmed Nagy",role:"CEO | INZOX",loc:"Egypt"},
+            {id:531,name:"Minho Choi",role:"Founder & CEO at Cozymakers",loc:"South Korea"},
+            {id:532,name:"Ben Byungjun Park",role:"Byond R | CEO",loc:"South Korea"},
+            {id:533,name:"SeoHyeon Han",role:"Founder & CEO @ ABCDEdu",loc:"South Korea"},
+            {id:534,name:"Ayman Al Ahnomi",role:"Founder & CEO @ dcab.com",loc:"N/A"},
+            {id:535,name:"Precious Antwi",role:"Kingdom Entrepreneur | Founder, Tufted",loc:"N/A"},
+            {id:536,name:"Sayed Mohamed",role:"Founder at Mat3m",loc:"N/A"},
+            {id:537,name:"Hien Le (Tracy)",role:"CEO | Health & Beauty Retail Expert",loc:"Vietnam"},
+            {id:538,name:"Donggyun Ha",role:"Founder & CEO @ProjectBuildup",loc:"South Korea"},
+            {id:539,name:"Arvindsamy SR",role:"Founder of Zero Cals",loc:"India"},
+            {id:540,name:"Jin Seon-woo",role:"earningbirds Founder & CTO",loc:"South Korea"},
+            {id:541,name:"Dr. N.R. Karthik",role:"Co Founder @ ARTISPEC TECHNOLOGIES",loc:"India"},
+            {id:542,name:"Lee Hyun-seok",role:"CO-CEO at Meditherapy",loc:"South Korea"},
+            {id:543,name:"Ilse Shin(신일애)",role:"Korean Linguist @ Turing",loc:"N/A"},
+            {id:544,name:"Juwon Gu",role:"Chief Executive Officer & founder @ELBA",loc:"South Korea"},
+            {id:545,name:"Sean Yoon",role:"AI Researcher at Dalpha",loc:"South Korea"},
+            {id:546,name:"Noni (Amnon) Israel",role:"Building Video Games",loc:"Israel"},
+            {id:547,name:"J.Rim Choi",role:"Kimcaddle CTO, Co-founder",loc:"South Korea"},
+            {id:548,name:"Choi Ji-won",role:"Founder of heritage beauty brand OKSAN100",loc:"South Korea"},
+            {id:549,name:"Yujae Kim",role:"Co-Founder of Ongredients",loc:"South Korea"},
+            {id:550,name:"Tom Nakata",role:"CEO at Qlay",loc:"N/A"},
+            {id:551,name:"Yunji Lee",role:"CEO of Sovement Inc.",loc:"South Korea"},
+            {id:552,name:"Jason Il-Jun Jung",role:"COO / Founder",loc:"South Korea"},
+            {id:553,name:"Louis Lv",role:"Founder & CEO at ELIOT Studio",loc:"N/A"},
+            {id:554,name:"Sungmin So",role:"Software Engineer",loc:"South Korea"},
+            {id:555,name:"Hwichan Jeon",role:"CEO, Founder of Basicfive",loc:"South Korea"},
+            {id:556,name:"Jonathon Willcoxson",role:"Founder of Canon Logic",loc:"N/A"},
+            {id:557,name:"Yang Seong-gyu",role:"Product Manager @Bloomingbit",loc:"South Korea"},
+            {id:558,name:"Hyunbin Kwon",role:"Co-Founder & Research Head @BRLAB Inc.",loc:"South Korea"},
+            {id:559,name:"Jay Yun",role:"Leading Digital Twin & AI",loc:"N/A"},
+            {id:560,name:"Hyunsoo Shin",role:"AWS Cloud Club Captain",loc:"South Korea"},
+            {id:561,name:"Nourhan Darwish",role:"Office Manager- Digital Marketing",loc:"N/A"},
+            {id:562,name:"Jinho yang",role:"CEO at CV3",loc:"South Korea"},
+            {id:563,name:"Robert Kim",role:"Recruit Hacker | Co-Founder @ In10s LAB",loc:"N/A"},
+            {id:564,name:"Seung-been 'Steven' Lee",role:"Director, Ultima Genomics",loc:"USA"},
+            {id:565,name:"Nathan Gunnell",role:"Chief Executive Officer at Neuroforce",loc:"N/A"},
+            {id:566,name:"Alex West",role:"MegaSynapse | Your AI Co-Founder",loc:"N/A"},
+            {id:567,name:"SungWon Ahn",role:"Pinotlab CEO, Founder",loc:"South Korea"},
+            {id:568,name:"Go Eun-sol",role:"Product Owner",loc:"South Korea"},
+            {id:569,name:"Leonid Stark",role:"Entrepreneur, founder and CEO of CoffeeGo",loc:"N/A"},
+            {id:570,name:"Kamil Galazka",role:"Founder @ mexicode.dev",loc:"N/A"},
+            {id:571,name:"Park David",role:"EduTech Professor",loc:"South Korea"},
+            {id:572,name:"Zameer Ahmed",role:"Founder & CEO | Building Smart Digital",loc:"N/A"},
+            {id:573,name:"GYURI KIM",role:"Clinical Data Innovation",loc:"South Korea"},
+            {id:574,name:"moustafa banbouk",role:"President at Veppy.com",loc:"N/A"},
+            {id:575,name:"Konomi Takasago",role:"VitaBase, Inc. Founder / CEO",loc:"Japan"},
+            {id:576,name:"Gracy c",role:"Google Cloud Innovator",loc:"N/A"},
+            {id:577,name:"Dai Phat",role:"Co-Founder tai April Render",loc:"Vietnam"},
+            {id:578,name:"Jaelyung Kim",role:"CTO @ PoplarPlanet",loc:"South Korea"},
+            {id:579,name:"Jongjin Park",role:"Head of APAC, EverEx",loc:"South Korea/APAC"},
+            {id:580,name:"YoungJun Jin",role:"Senior Consultant at KPMG",loc:"South Korea"},
+            {id:581,name:"Euiyeob Kim",role:"MMHUB CEO",loc:"South Korea"},
+            {id:582,name:"Jaehyun Choi",role:"SNU ECE dept. Integrated Masters",loc:"South Korea"},
+            {id:583,name:"JunSeung Mo",role:"Platform Product Owner @toss",loc:"South Korea"},
+            {id:584,name:"Huong Luu (Lulu)",role:"Founder & CEO",loc:"Vietnam"},
+            {id:585,name:"Ukjin (Jay) Kwon",role:"Vice President at Primer Sazze Partners",loc:"N/A"},
+            {id:586,name:"Hyesik Ryu",role:"Corebeat CEO",loc:"South Korea"},
+            {id:587,name:"Nuri Kim",role:"Founder & Technical Trainer @ Skilleat",loc:"South Korea"},
+            {id:588,name:"Gary Hwang",role:"CEO @ G-Man Auto Parts Corp.",loc:"N/A"},
+            {id:589,name:"Bomin (Bonnie) Kim",role:"MSc Innovation Management",loc:"N/A"},
+            {id:590,name:"Nicole Wood",role:"CEO & Co-Founder at Ama La Vida",loc:"N/A"},
+            {id:591,name:"Ibrahim noaman",role:"Head of corporate at Ramtrade",loc:"N/A"},
+            {id:592,name:"B. Daff",role:"Founder@Allin",loc:"N/A"},
+            {id:593,name:"Almond Jeong",role:"Founder @ Beau-Link",loc:"South Korea/USA"},
+            {id:594,name:"June Kim",role:"Co-founder @Kinni",loc:"South Korea"},
+            {id:595,name:"He Yan",role:"Founder of CoreSpeed",loc:"N/A"},
+            {id:596,name:"Choi Su-hun",role:"Mobile Developer",loc:"South Korea"},
+            {id:597,name:"Serfine Awino",role:"Student at Kisii University",loc:"Kenya"},
+            {id:598,name:"James An",role:"Co-Founder & CTO at Solverine",loc:"N/A"},
+            {id:599,name:"Eugene Hwang",role:"PhD Program at KAIST GSCT",loc:"South Korea"},
+            {id:600,name:"Aaron Song",role:"2x founder",loc:"N/A"},
+            {id:601,name:"Cobb Cho",role:"Co-Founder @Gentoo",loc:"South Korea"},
+            {id:602,name:"Jinwook Kim",role:"XR UX/UI Resercher",loc:"South Korea"},
+            {id:603,name:"Irene Grilo",role:"Full Stack Developer",loc:"N/A"},
+            {id:604,name:"Seowoo Han",role:"AI Impact Engineer",loc:"South Korea"},
+            {id:605,name:"Taeeun Kim",role:"Backend Developer",loc:"South Korea"},
+            {id:606,name:"Gyeongjun Paik",role:"DevOps Engineer at Opensurvey",loc:"South Korea"},
+            {id:607,name:"Emirhan Ünal",role:"K-LAND Kore Kozmetik",loc:"Turkey"},
+            {id:608,name:"Kim JungHyeon",role:"VIZICUBE Chief Executive Officer",loc:"South Korea"},
+            {id:609,name:"August Nikolai Kvitberg",role:"Founder and Managing Director",loc:"N/A"},
+            {id:610,name:"Hyejeong Kim",role:"Founder @ Viven AI",loc:"South Korea"},
+            {id:611,name:"Steven Kim",role:"Founder and CEO, int4",loc:"South Korea"},
+            {id:612,name:"Bassem Nasr",role:"Co-Founder at Banstock",loc:"N/A"},
+            {id:613,name:"sungho kim",role:"Founder & CEO at Xitst",loc:"South Korea"},
+            {id:614,name:"Go Young-seok",role:"Entrepreneur | Antler KOR7",loc:"South Korea"},
+            {id:615,name:"Colette",role:"Founder - YE JIN Korean Skincare",loc:"N/A"},
+            {id:616,name:"Min Song",role:"CEO OnomaAI",loc:"South Korea"},
+            {id:617,name:"Ahmed Taher",role:"Operations leader & entrepreneur",loc:"Egypt/Gulf"},
+            {id:618,name:"SARANYA G",role:"Group-CHRO SG Groups",loc:"India"},
+            {id:619,name:"Ian Hogeun Paik",role:"Gears'Company | Founder",loc:"South Korea"},
+            {id:620,name:"Tyler Foister",role:"CEO - FortBlockGames",loc:"N/A"},
+            {id:621,name:"Ha Min Joung",role:"Co-Founder @Whitecrow",loc:"South Korea"},
+            {id:622,name:"Jinyoung Kim",role:"Building Trustworthy AI",loc:"South Korea"},
+            {id:623,name:"Park Jae O",role:"CEO of Cura-S",loc:"South Korea"},
+            {id:624,name:"Chulmin Tony Park",role:"Founder & CEO @ AIPARK",loc:"South Korea"},
+            {id:625,name:"Daez H",role:"AI Video Ad Creator",loc:"N/A"},
+            {id:626,name:"Thuan Phat Vu",role:"Chief Executive Officer @ CYNO Software",loc:"Vietnam"},
+            {id:627,name:"Jo Sang-min",role:"VWS CEO/CTO",loc:"South Korea"},
+            {id:628,name:"Jimmy Woolley",role:"Founder 404Films.net",loc:"N/A"},
+            {id:629,name:"Byungjun Park",role:"CEO of PurpleAI Inc.",loc:"South Korea"},
+            {id:630,name:"SUN KIM",role:"Urban Labs CEO, Founder",loc:"South Korea"},
+            {id:631,name:"Cheuk Sum Choi",role:"Executive Director at Akafuji Group",loc:"N/A"},
+            {id:632,name:"KyNam Doan",role:"Co-founder & CTO @ Smartr",loc:"Vietnam"},
+            {id:633,name:"Dung Ta Van",role:"Founder of Young Monkeys",loc:"Vietnam"},
+            {id:634,name:"Linh Nguyen",role:"Managing Partner",loc:"Vietnam"},
+            {id:635,name:"Hana Abriyansyah",role:"Founder and CEO at Cisometric",loc:"Indonesia"},
+            {id:636,name:"Hai Le",role:"SVP & Deputy CEO",loc:"Vietnam"},
+            {id:637,name:"Michael Voinov",role:"Co-Founder & COO at Rivellium",loc:"N/A"},
+            {id:638,name:"Olaf Purvis",role:"Founder & CEO at bukaPO",loc:"N/A"},
+            {id:639,name:"Phu Do",role:"Vice Chief Technology... @ Vietravel Corp",loc:"Vietnam"},
+            {id:640,name:"Tri Nguyen",role:"Vice General Director at Western Pacific",loc:"Vietnam"},
+            {id:641,name:"Son Ju-hyung",role:"CMO @ HEPTONE",loc:"South Korea"},
+            {id:642,name:"Ngo Thanh Phong",role:"Founder & CEO at BFF VN",loc:"Vietnam"},
+            {id:643,name:"Thuc Huu Nguyen",role:"GPT Builder, Founder & CEO",loc:"Vietnam"},
+            {id:644,name:"Linh NGHIEM",role:"Founder at chili.vn",loc:"Vietnam"},
+            {id:645,name:"Kelvin Tran.",role:"Managing Director - Digital Transformation",loc:"Vietnam"},
+            {id:646,name:"Nguyen Ngoc Hung",role:"Founder HDC Consulting",loc:"Vietnam"},
+            {id:647,name:"KHOA TRAN NAM",role:"Founder at Tradeline Global Services",loc:"Vietnam"},
+            {id:648,name:"Tan Trong Nguyen",role:"Co-Founder tai Atomic Media",loc:"Vietnam"},
+            {id:649,name:"Martin Johnsen Øiem",role:"Co-Founder... at Saga Payments AS",loc:"Norway"},
+            {id:650,name:"Ali Bahşişoğlu",role:"Co-Founder @Binaryworkz",loc:"Turkey"},
+            {id:651,name:"Gabriel Reyes .-.",role:"Serial Entrepreneur",loc:"N/A"},
+            {id:652,name:"Hyun tae Lim",role:"CEO, Founder at Datatown",loc:"South Korea"}
+        ];
+
+        function renderTable(data) {
+            const tbody = document.getElementById('contactTableBody');
+            const countDisplay = document.getElementById('recordCount');
+            tbody.innerHTML = '';
+            
+            data.forEach(contact => {
+                const tr = document.createElement('tr');
+                tr.className = 'table-row-hover transition duration-150 ease-in-out';
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${contact.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">${contact.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${contact.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                        ${contact.loc === 'N/A' ? 'bg-gray-100 text-gray-800' : 'bg-blue-100 text-blue-800'}">
+                            ${contact.loc}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            countDisplay.innerText = `Showing ${data.length} records`;
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = contacts.filter(c => 
+                c.name.toLowerCase().includes(searchTerm) || 
+                c.role.toLowerCase().includes(searchTerm) || 
+                c.loc.toLowerCase().includes(searchTerm) ||
+                c.id.toString().includes(searchTerm)
+            );
+            renderTable(filtered);
+        });
+
+        // Initial Render
+        renderTable(contacts);
+    </script>
+</body>
+</html>
